@@ -10,18 +10,19 @@ public class CalculatorWindow extends JFrame {
     private int WIGHT = 300;
     private int LONG_W = 250;
     private int LONG_H = 300;
+    static String memory;
 
 
     public CalculatorWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(HIGHT, WIGHT, LONG_W, LONG_H);
         setTitle("Calculator");
-        JPanel numb = new JPanel(new GridLayout(5, 3));
+        JPanel numb = new JPanel(new GridLayout(6, 3));
         JPanel res = new JPanel(new GridLayout(2, 1));
         add(numb, BorderLayout.SOUTH);
         add(res, BorderLayout.EAST);
-        JButton[] buttons = new JButton[16];
-        String[] sym = {"+", "-", "*", "/", "^", "="};
+        JButton[] buttons = new JButton[18];
+        String[] sym = {"(", ")","+", "-", "*", "/", "^", "memory", "="};
         JTextField string2 = new JTextField();
         add(string2);
         NotionWindow open = new NotionWindow();
@@ -31,7 +32,8 @@ public class CalculatorWindow extends JFrame {
                 if (string2.getText().contains("=")){
                     string2.setText("");
                 }
-                for (int i = 0; i < 16; i++) {
+
+                for (int i = 0; i < buttons.length-1; i++) {
                     if (e.getSource() == buttons[i]) {
                         string2.setText(string2.getText().concat(buttons[i].getText()));
                     }
@@ -70,10 +72,13 @@ public class CalculatorWindow extends JFrame {
                     }
                 }
         });
-
+        memory = String.valueOf(res);
+        buttons[buttons.length - 2] = new JButton("");
+        numb.add(buttons[buttons.length - 2] );
         res.add(buttons[buttons.length - 1]);
         setVisible(true);
         open.setVisible(true);
 
     }
 }
+

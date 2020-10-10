@@ -1,6 +1,4 @@
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
 
 public class CalculatorLogic {
 
@@ -27,10 +25,10 @@ public class CalculatorLogic {
                 return -1;
         }
     }
-    static void processOperator(LinkedList<Integer> st, char op) {
-        int r = st.removeLast(); // take out the last element from the linked list
-        int l = st.removeLast();
-        switch (op) { // make an action between "l" и "r" depends of operator and put the result into linked list
+    static void processOperator(LinkedList<Long> st, char op) {
+        long r = st.removeLast(); // take out the last element from the linked list
+        long l = st.removeLast();
+        switch (op) { // make an action between "l" and "r" depends of operator and put the result into linked list
             case '+':
                 st.add(l + r);
                 break;
@@ -44,14 +42,14 @@ public class CalculatorLogic {
                 st.add(l / r);
                 break;
             case '^':
-                int res = 1;
+                long res = 1;
                 while (r>1) {
                     if (r % 2 == 1) {
                         res *= l;
                     } else {
                         l *= l;
-                        r /= 2;
                     }
+                    r /= 2;
                 }
                 if (r>0){
                     res*=l;
@@ -61,8 +59,8 @@ public class CalculatorLogic {
                 break;
         }
     }
-    public int eval(String s) {
-        LinkedList<Integer> st = new LinkedList<Integer>(); // put digits
+    public Long eval(String s) {
+        LinkedList<Long> st = new LinkedList<Long>(); // put digits
         LinkedList<Character> op = new LinkedList<Character>(); // put operators
         for (int i = 0; i < s.length(); i++) { // parse the string with the expression and calculate
             char c = s.charAt(i);
@@ -83,7 +81,7 @@ public class CalculatorLogic {
                 while (i < s.length() && Character.isDigit(s.charAt(i)))
                     operand += s.charAt(i++);
                 --i;
-                st.add(Integer.parseInt(operand));
+                st.add(Long.parseLong(operand));
             }
         }
         while (!op.isEmpty())
